@@ -1,6 +1,16 @@
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
+import os
+
+def create_folders():
+    '''
+    This will create the folders for the extracted data.
+    '''
+    
+    os.mkdir("./files/")
+    os.mkdir("./files/raw/")
+    os.mkdir("./files/access")
 
 # Creating the function for the scraper for sunglasseshub for men
 def scraper(data_level: str, men_scraper: bool, women_scraper: bool):
@@ -81,6 +91,7 @@ def scraper(data_level: str, men_scraper: bool, women_scraper: bool):
         pass
 
 if __name__ == "__main__":
+    create_folders()
     # Is preferable to do one scraper at a time
     scraper("raw",True,True)
 

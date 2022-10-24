@@ -1,13 +1,14 @@
 from csv import DictReader
+from tabnanny import check
 import pandas as pd
 import os
 
-files = []
-files_path = "./files/raw/"
-
-for file in os.listdir("./files/raw/"):
-    if file.endswith(".csv"):
-        files.append(os.path.join("./files/raw/", file))
+def get_files_names():
+    files =[]
+    for file in os.listdir("./files/raw/"):
+        if file.endswith(".csv"):
+            files.append(os.path.join("./files/raw/", file))
+    return files
 
 
 def csv_reader(filename:str) -> list[dict]:
@@ -56,6 +57,7 @@ def data_cleaning(raw_data:list, data_level: str, gender: str) -> pd.DataFrame:
 
 
 if __name__ == "__main__":
+    files = get_files_names()
     for file in files:
         gender_file = file.split("-")[1]
         csv_file = csv_reader(file)
