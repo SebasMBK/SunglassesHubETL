@@ -25,12 +25,15 @@ def csv_reader(filename:str) -> list[dict]:
         return csv_to_list
 
 
-def data_cleaning(raw_data:list):
+def data_cleaning(raw_data:list, data_level: str, gender: str) -> pd.DataFrame:
     """
-    This will return the raw data cleaned and converted into a pandas DataFrame
+    This will return the raw data cleaned and converted into a pandas DataFrame and then write it
+    into a csv file.
 
     args:
      - raw_data: This is a list of dictionaries of the raw data that is required to be cleaned
+     - data_level: The level of the data -> for example: raw, validated, access, etc.
+     - gender: Which file are we working on. Sunglasseshub for men or women
     """
     
     # Converting the list of dictionaries into a DF
@@ -46,12 +49,9 @@ def data_cleaning(raw_data:list):
     df.drop(['name'], axis=1, inplace=True)
     # Every column name must be in lowercase
     df.columns = df.columns.str.lower()
+    # Write DF to csv file
+    df.to_csv(f"./raw/access/products-{gender}-{data_level}.csv")
 
     return df
 
-prueba = csv_reader(files[0])
-dataframe = data_cleaning(prueba)
-print(dataframe["colorsnumber"])
 
-    #diccionario = arch.to_dict("records")
-    #print(diccionario[2])

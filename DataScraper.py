@@ -8,7 +8,7 @@ def scraper(data_level: str, men_scraper: bool, women_scraper: bool):
     This will extract the data into csv files
 
     args:
-    - data_level(str): The level of the data -> for example: raw, validated, cleaned, etc.
+    - data_level(str): The level of the data -> for example: raw, validated, access, etc.
     - men_scrapper(bool): Set to "True" if you want to run the scraper to extract the data of sunglasseshub for men
     - women_scrapper(bool): Set to "True" if you want to run the scraper to extract the data of sunglasseshub for women
     
