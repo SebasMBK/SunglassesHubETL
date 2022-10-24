@@ -36,7 +36,7 @@ def data_cleaning(raw_data:list, data_level: str, gender: str) -> pd.DataFrame:
      - gender: Which file are we working on. Sunglasseshub for men or women
     """
     
-    # Converting the list of dictionaries into a DF
+    # Converting the list of dictionaries into a DF.
     df = pd.DataFrame(raw_data)
     # Removing the "$" symbol from the prices
     df["listPrice"] = df["listPrice"].str.replace("$","")
