@@ -48,7 +48,7 @@ def scraper(data_level: str, men_scraper: bool, women_scraper: bool):
         # Here, I'm creating the Dataframe and selecting only the columns that I need for the pipeline
         selectColumnsDFMen = pd.json_normalize(data_)[["isJunior","lensColor","img","isFindInStore","isCustomizable","roxableLabel","brand","imgHover","isPolarized","colorsNumber","isOutOfStock","modelName","isEngravable","localizedColorLabel","name","listPrice","offerPrice"]]
         # Finally, the data is written into a csv file
-        selectColumnsDFMen.to_csv(f"./archivos/raw/products-men-{data_level}.csv",encoding="utf-8-sig",index=False)    
+        selectColumnsDFMen.to_csv(f"./files/raw/products-men-{data_level}.csv",encoding="utf-8-sig",index=False)    
     else:
         pass
 
@@ -78,7 +78,7 @@ def scraper(data_level: str, men_scraper: bool, women_scraper: bool):
 
         data_ = response["plpView"]["products"]["products"]["product"]
         selectColumnsDFWomen = pd.json_normalize(data_)[["isJunior","lensColor","img","isFindInStore","isCustomizable","roxableLabel","brand","imgHover","isPolarized","colorsNumber","isOutOfStock","modelName","isEngravable","localizedColorLabel","name","listPrice","offerPrice"]]
-        selectColumnsDFWomen.to_csv(f"./archivos/raw/products-women-{data_level}.csv",encoding="utf-8-sig",index=False)
+        selectColumnsDFWomen.to_csv(f"./files/raw/products-women-{data_level}.csv",encoding="utf-8-sig",index=False)
     else:
         pass
 
