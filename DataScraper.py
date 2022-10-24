@@ -1,8 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
-from datetime import date
-import time
 
 # Creating the function for the scraper for sunglasseshub for men
 def scraper(data_level: str, men_scraper: bool, women_scraper: bool):
@@ -11,8 +9,8 @@ def scraper(data_level: str, men_scraper: bool, women_scraper: bool):
 
     args:
     - data_level(str): The level of the data -> for example: raw, validated, cleaned, etc.
-    - men_scrapper(bool): True if you want to run the scraper to extract the data of sunglasseshub for men
-    - women_scrapper(bool): True if you want to run the scraper to extract the data of sunglasseshub for women
+    - men_scrapper(bool): Set to "True" if you want to run the scraper to extract the data of sunglasseshub for men
+    - women_scrapper(bool): Set to "True" if you want to run the scraper to extract the data of sunglasseshub for women
     
     '''
     
@@ -83,6 +81,7 @@ def scraper(data_level: str, men_scraper: bool, women_scraper: bool):
         pass
 
 if __name__ == "__main__":
+    # Is preferable to do one scraper at a time
     scraper("raw",True,True)
 
 
