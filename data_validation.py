@@ -3,7 +3,7 @@ from tabnanny import check
 import pandas as pd
 import os
 
-def get_files_names():
+def get_files_names() -> list[str]:
     files =[]
     for file in os.listdir("./files/raw/"):
         if file.endswith(".csv"):

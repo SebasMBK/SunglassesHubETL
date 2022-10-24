@@ -1,2 +1,5 @@
 .idea
 files
+credentials
+parameters
+__pycache__

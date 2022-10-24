@@ -1,15 +1,10 @@
 import os
+from data_validation import get_files_names
 
-files = []
-files_path = "./files/raw/"
 
-for file in os.listdir("./files/raw/"):
-    if file.endswith(".csv"):
-        files.append(os.path.join("./files/raw/", file))
+files = get_files_names()
 
-stringito = "hola"
-if stringito.endswith("a"):
-    print("o")
-else:
-    print("u")
 
+for file in files:
+    file_name = "sunglasseshub_" + file.split("-")[1] + "_table"
+    print(file_name)
