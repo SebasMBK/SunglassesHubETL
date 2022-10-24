@@ -22,7 +22,7 @@ def csv_reader(filename:str) -> list[dict]:
     with open(filename, "r",encoding='utf-8-sig') as file:
         get_dictionary = DictReader(file)
         csv_to_list = list(get_dictionary)
-        return dict_to_csv
+        return csv_to_list
 
 
 def data_cleaning(raw_data:list):
@@ -32,10 +32,26 @@ def data_cleaning(raw_data:list):
     args:
      - raw_data: This is a list of dictionaries of the raw data that is required to be cleaned
     """
-
+    
+    # Converting the list of dictionaries into a DF
     df = pd.DataFrame(raw_data)
+    # Removing the "$" symbol from the prices
     df["listPrice"] = df["listPrice"].str.replace("$","")
     df["offerPrice"] = df["offerPrice"].str.replace("$","")
+    # The column "colorsNumber" has this syntax e.g "2 colors" or "1 Color". Here we are keeping only
+    # the numbers
+    df["colorsNumber"] = df["colorsNumber"].str.replace(" colors","")
+    df["colorsNumber"] = df["colorsNumber"].str.replace(" Color","")
+    # There are 2 columns for the product name. Here we are dropping the one with the name "name"
+    df.drop(['name'], axis=1, inplace=True)
+    # Every column name must be in lowercase
+    df.columns = df.columns.str.lower()
+
+    return df
+
+prueba = csv_reader(files[0])
+dataframe = data_cleaning(prueba)
+print(dataframe["colorsnumber"])
 
     #diccionario = arch.to_dict("records")
     #print(diccionario[2])
