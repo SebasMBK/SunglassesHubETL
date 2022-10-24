@@ -50,8 +50,13 @@ def data_cleaning(raw_data:list, data_level: str, gender: str) -> pd.DataFrame:
     # Every column name must be in lowercase
     df.columns = df.columns.str.lower()
     # Write DF to csv file
-    df.to_csv(f"./raw/access/products-{gender}-{data_level}.csv")
+    df.to_csv(f"./files/access/products-{gender}-{data_level}.csv",encoding="utf-8-sig",index=False)
 
     return df
 
 
+if __name__ == "__main__":
+    for file in files:
+        gender_file = file.split("-")[1]
+        csv_file = csv_reader(file)
+        raw_dict = data_cleaning(csv_file,"access",gender_file)
