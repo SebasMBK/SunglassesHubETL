@@ -1,3 +1,4 @@
+from json import load
 import psycopg2
 from configparser import ConfigParser
 import os
@@ -31,17 +32,28 @@ def config_parameters(filename: str, section: str):
     parsing.read(filename)
 
     # Creating the dictionary with the information of the configuration of the connection to the DB
-    database = {}
+    database_params = {}
     if parsing.has_section(section):
         parameters = parsing.items(section)
         for parameter in parameters:
-            database[parameter[0]] = parameter[1]
+            database_params[parameter[0]] = parameter[1]
     else:
         raise Exception(f'Section {section} not found in the {filename} file')
 
-    return database
+    return database_params
 
 def creating_db(configuration: dict,db_name="scraper"):
+
+    """
+    This function will create the database in the SQL-engine that will be used for this project.
+
+    args:
+    - configuration: These are the configuration params of the DB that will be used. This information
+                     is in the form of a dictionary
+    - db_name: This is the name that we want to give to our database.
+    """
+
+    # Setting up the connection. In this case to a Postgresql DB.
     conn = psycopg2.connect(**configuration)
     conn.autocommit = True
     
@@ -61,6 +73,17 @@ def creating_db(configuration: dict,db_name="scraper"):
         """)
 
 def creating_tables(configuration: dict):
+
+    """
+    This function will create the tables that we need to store the sunglasseshub data that was
+    extracted
+
+    args:
+    - configuration: These are the configuration params of the DB that will be used. This information
+                     is in the form of a dictionary
+    """
+
+    # This function was imported from the "data_validation.py" python file.
     files = get_files_names()
 
     conn = psycopg2.connect(**configuration)
@@ -86,9 +109,9 @@ def creating_tables(configuration: dict):
                     modelname VARCHAR(255), \
                     isengravable BOOL, \
                     localizedcolorlabel VARCHAR(255), \
-                    listprice INT, \
-                    offerprice INT, \
-                    PRIMARY KEY (lenscolor, modelname) \
+                    listprice money, \
+                    offerprice money, \
+                    PRIMARY KEY (lenscolor, modelname, localizedcolorlabel) \
                     );
                     '''
             cursor.execute(sql)
@@ -103,6 +126,42 @@ def creating_tables(configuration: dict):
     
     conn.close()
 
+
+def load_to_sql(configuration: dict):
+    
+    files = get_files_names()
+
+    conn = psycopg2.connect(**configuration)
+    conn.autocommit = True
+
+    for file in files:
+        table_name = "sunglasseshub_" + file.split("-")[1] + "_table"
+
+        try:
+            cursor = conn.cursor()
+            sql_truncate = f'''
+                        TRUNCATE {table_name} 
+                        '''
+            sql = f'''
+                    COPY {table_name}(isjunior, lenscolor, img, isfindinstore, iscustomizable, roxablelabel, brand, imghover, ispolarized, colorsnumber, isoutofstock, modelname, isengravable, localizedcolorlabel, listprice, offerprice) \
+                    FROM 'C:/Users/SebastianKassimMonte/OneDrive - kyndryl/Python/Web_Scrapping/sunglasseshub/SunglassesHubETL/files/access/products-{file.split("-")[1]}-access.csv' \
+                    DELIMITER ',' \
+                    CSV HEADER;
+                    '''
+            cursor.execute(sql_truncate)
+            cursor.execute(sql)
+
+            print(f"Data copied to {table_name}........")
+        except Exception as e:
+            print(f"""
+            --------------------------------------------------------------
+            |An error ocurred. Please, check that the file {file} exists.|
+            |Check the logs for more information.                        |
+            --------------------------------------------------------------
+            """)
+    
+    conn.close()
+
     
 
 if __name__ == "__main__":
@@ -110,6 +169,7 @@ if __name__ == "__main__":
     parameters_db = config_parameters("./parameters/database.ini","postgresql_scraper")
     creating_db(configuration=parameters_master,db_name="scraper")
     creating_tables(configuration=parameters_db)
+    load_to_sql(configuration=parameters_db)
 
 
 
