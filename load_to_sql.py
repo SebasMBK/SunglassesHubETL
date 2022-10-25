@@ -86,7 +86,7 @@ def creating_tables(configuration: dict):
     """
 
     # This function was imported from the "data_validation.py" python file.
-    files = get_files_names()
+    files = get_files_names(path="./files/access/")
 
     conn = psycopg2.connect(**configuration)
     conn.autocommit = True
@@ -139,7 +139,7 @@ def load_to_sql(configuration: dict):
                      is in the form of a dictionary 
     """
     
-    files = get_files_names()
+    files = get_files_names(path="./files/access/")
 
     conn = psycopg2.connect(**configuration)
     conn.autocommit = True
@@ -162,12 +162,12 @@ def load_to_sql(configuration: dict):
             cursor.execute(sql)
 
             print(f"Data copied to {table_name}........")
-            
+
         except Exception as e:
             print(f"""
             --------------------------------------------------------------------------
             |An error ocurred. Please, check that the files exists or the permissions|
-            |for copying from the directory or from file itself.                     |
+            |for copying from the directory or file itself.                          |
             |Check the logs for more information.                                    |
             --------------------------------------------------------------------------
             """)

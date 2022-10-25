@@ -3,15 +3,15 @@ from tabnanny import check
 import pandas as pd
 import os
 
-def get_files_names() -> list[str]:
+def get_files_names(path) -> list[str]:
 
     """
     This function returns a list of the files' names that exist in the directory
     """
     files =[]
-    for file in os.listdir("./files/raw/"):
+    for file in os.listdir(path):
         if file.endswith(".csv"):
-            files.append(os.path.join("./files/raw/", file))
+            files.append(os.path.join(path, file))
     return files
 
 
@@ -47,6 +47,7 @@ def data_cleaning(raw_data:list, data_level: str, gender: str) -> pd.DataFrame:
     # the numbers
     df["colorsNumber"] = df["colorsNumber"].str.replace(" colors","")
     df["colorsNumber"] = df["colorsNumber"].str.replace(" Color","")
+    # These 3 columns are part of the PRIMARY KEY, so they can't be null
     df["modelName"].replace("","N/A",inplace=True)
     df["lensColor"].replace("","N/A",inplace=True)
     df["localizedColorLabel"].replace("","N/A",inplace=True)
@@ -61,8 +62,8 @@ def data_cleaning(raw_data:list, data_level: str, gender: str) -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    files = get_files_names()
+    files = get_files_names(path="./files/raw/")
     for file in files:
         gender_file = file.split("-")[1]
-        csv_file = csv_reader(file)
-        raw_dict = data_cleaning(csv_file,"access",gender_file)
+        csv_file = csv_reader(filename=file)
+        raw_dict = data_cleaning(raw_data=csv_file,data_level="access",gender=gender_file)
