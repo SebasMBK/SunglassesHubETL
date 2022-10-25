@@ -71,6 +71,8 @@ def creating_db(configuration: dict,db_name="scraper"):
         |DB was already created or another error ocurred. Check the logs for more information.|
         ---------------------------------------------------------------------------------------
         """)
+    
+    conn.close()
 
 def creating_tables(configuration: dict):
 
@@ -128,6 +130,14 @@ def creating_tables(configuration: dict):
 
 
 def load_to_sql(configuration: dict):
+
+    """
+    This function will load the data into SQL.
+
+    args:
+    - configuration: These are the configuration params of the DB that will be used. This information
+                     is in the form of a dictionary 
+    """
     
     files = get_files_names()
 
@@ -140,8 +150,8 @@ def load_to_sql(configuration: dict):
         try:
             cursor = conn.cursor()
             sql_truncate = f'''
-                        TRUNCATE {table_name} 
-                        '''
+                            TRUNCATE {table_name} 
+                            '''
             sql = f'''
                     COPY {table_name}(isjunior, lenscolor, img, isfindinstore, iscustomizable, roxablelabel, brand, imghover, ispolarized, colorsnumber, isoutofstock, modelname, isengravable, localizedcolorlabel, listprice, offerprice) \
                     FROM 'C:/Users/SebastianKassimMonte/OneDrive - kyndryl/Python/Web_Scrapping/sunglasseshub/SunglassesHubETL/files/access/products-{file.split("-")[1]}-access.csv' \
@@ -152,12 +162,14 @@ def load_to_sql(configuration: dict):
             cursor.execute(sql)
 
             print(f"Data copied to {table_name}........")
+            
         except Exception as e:
             print(f"""
-            --------------------------------------------------------------
-            |An error ocurred. Please, check that the file {file} exists.|
-            |Check the logs for more information.                        |
-            --------------------------------------------------------------
+            --------------------------------------------------------------------------
+            |An error ocurred. Please, check that the files exists or the permissions|
+            |for copying from the directory or from file itself.                     |
+            |Check the logs for more information.                                    |
+            --------------------------------------------------------------------------
             """)
     
     conn.close()

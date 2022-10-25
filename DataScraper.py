@@ -1,3 +1,4 @@
+from genericpath import isdir
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
@@ -7,10 +8,21 @@ def create_folders():
     '''
     This will create the folders for the extracted data.
     '''
-    
-    os.mkdir("./files/")
-    os.mkdir("./files/raw/")
-    os.mkdir("./files/access")
+    if os.path.isdir("./files"):
+        pass
+    else:
+        os.mkdir("./files/")
+
+    if os.path.isdir("./files/raw"):
+        pass
+    else:
+        os.mkdir("./files/raw/")
+
+    if os.path.isdir("./files/access"):
+        pass
+    else:
+        os.mkdir("./files/access")
+        
 
 # Creating the function for the scraper for sunglasseshub for men
 def scraper(data_level: str, men_scraper: bool, women_scraper: bool):
@@ -93,7 +105,8 @@ def scraper(data_level: str, men_scraper: bool, women_scraper: bool):
 if __name__ == "__main__":
     create_folders()
     # Is preferable to do one scraper at a time
-    scraper("raw",True,True)
+    scraper("raw",men_scraper=True,women_scraper=False)
+    scraper("raw",men_scraper=False,women_scraper=True)
 
 
 
