@@ -1,8 +1,7 @@
-from json import load
 import psycopg2
 from configparser import ConfigParser
-import os
 from data_validation import get_files_names
+
 # Setting up the configurations
 def config_parameters(filename: str, section: str):
 
