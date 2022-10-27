@@ -1,6 +1,6 @@
 import psycopg2
 from configparser import ConfigParser
-from data_validation import get_files_names
+from DataValidator.data_validation import get_files_names
 
 # Setting up the configurations
 def config_parameters(filename: str, section: str):
@@ -84,8 +84,8 @@ def creating_tables(configuration: dict):
                      is in the form of a dictionary
     """
 
-    # This function was imported from the "data_validation.py" python file.
-    files = get_files_names(path="./files/access/")
+    # This function "get_files_names" was imported from the "data_validation.py" python file.
+    files = get_files_names(path="C:/tmp/files/access/")
 
     conn = psycopg2.connect(**configuration)
     conn.autocommit = True
@@ -138,7 +138,7 @@ def load_to_sql(configuration: dict):
                      is in the form of a dictionary 
     """
     
-    files = get_files_names(path="./files/access/")
+    files = get_files_names(path="C:/tmp/files/access/")
 
     conn = psycopg2.connect(**configuration)
     conn.autocommit = True
@@ -153,7 +153,7 @@ def load_to_sql(configuration: dict):
                             '''
             sql = f'''
                     COPY {table_name}(isjunior, lenscolor, img, isfindinstore, iscustomizable, roxablelabel, brand, imghover, ispolarized, colorsnumber, isoutofstock, modelname, isengravable, localizedcolorlabel, listprice, offerprice) \
-                    FROM 'C:/Users/SebastianKassimMonte/OneDrive - kyndryl/Python/Web_Scrapping/sunglasseshub/SunglassesHubETL/files/access/products-{file.split("-")[1]}-access.csv' \
+                    FROM 'C:/tmp/files/access/products-{file.split("-")[1]}-access.csv' \
                     DELIMITER ',' \
                     CSV HEADER;
                     '''
@@ -164,11 +164,11 @@ def load_to_sql(configuration: dict):
 
         except Exception as e:
             print(f"""
-            --------------------------------------------------------------------------
-            |An error ocurred. Please, check that the files exists or the permissions|
-            |for copying from the directory or file itself.                          |
-            |Check the logs for more information.                                    |
-            --------------------------------------------------------------------------
+            --------------------------------------------------------------------------------
+            |An error ocurred. Please, check that the files exists or check the permissions|
+            |for copying from the directory or file itself.                                |
+            |Check the logs for more information.                                          |
+            --------------------------------------------------------------------------------
             """)
     
     conn.close()
@@ -176,8 +176,8 @@ def load_to_sql(configuration: dict):
     
 
 if __name__ == "__main__":
-    parameters_master = config_parameters("./parameters/database.ini","postgresql_master")
-    parameters_db = config_parameters("./parameters/database.ini","postgresql_scraper")
+    parameters_master = config_parameters("C:/tmp/parameters/database.ini","postgresql_master")
+    parameters_db = config_parameters("C:/tmp/parameters/database.ini","postgresql_scraper")
     creating_db(configuration=parameters_master,db_name="scraper")
     creating_tables(configuration=parameters_db)
     load_to_sql(configuration=parameters_db)
