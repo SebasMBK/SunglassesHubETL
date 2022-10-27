@@ -86,7 +86,7 @@ def creating_tables(configuration: dict):
     """
 
     # This function "get_files_names" was imported from the "utilities.py" python file.
-    files = get_files_names(path="C:/tmp/files/access/")
+    files = get_files_names(path="/tmp/files/access/")
 
     conn = psycopg2.connect(**configuration)
     conn.autocommit = True
@@ -140,50 +140,47 @@ def load_to_sql(configuration: dict):
     """
     
     # This function "get_files_names" was imported from the "utilities.py" python file.
-    files = get_files_names(path="C:/tmp/files/access/")
+    files = get_files_names(path="/tmp/files/access/")
 
     conn = psycopg2.connect(**configuration)
     conn.autocommit = True
 
-    for file in files:
-        table_name = "sunglasseshub_" + file.split("-")[1] + "_table"
+    try:
 
-        try:
-            cursor = conn.cursor()
+        cursor = conn.cursor()
+
+        for file in files:
+            table_name = "sunglasseshub_" + file.split("-")[1] + "_table"
+
             sql_truncate = f'''
                             TRUNCATE {table_name} 
                             '''
-            sql = f'''
-                    COPY {table_name}(isjunior, lenscolor, img, isfindinstore, iscustomizable, roxablelabel, brand, imghover, ispolarized, colorsnumber, isoutofstock, modelname, isengravable, localizedcolorlabel, listprice, offerprice) \
-                    FROM 'C:/tmp/files/access/products-{file.split("-")[1]}-access.csv' \
-                    DELIMITER ',' \
-                    CSV HEADER;
-                    '''
             cursor.execute(sql_truncate)
-            cursor.execute(sql)
+
+            with open(file,'r') as csv:
+                next(csv)
+                cursor.copy_from(csv,f'{table_name}',sep=';')
+
+
 
             print(f"Data copied to {table_name}........")
 
-        except Exception as e:
-            print(f"""
-            --------------------------------------------------------------------------------
-            |An error ocurred. Please, check that the files exists or check the permissions|
-            |for copying from the directory or file itself.                                |
-            |Check the logs for more information.                                          |
-            --------------------------------------------------------------------------------
-            """)
+    except Exception as e:
+                print("""
+                --------------------------------------------------------------------------------
+                |An error ocurred. Please, check that the files exists or check the permissions|
+                |for copying from the directory or file itself.                                |
+                |Check the logs for more information.                                          |
+                --------------------------------------------------------------------------------
+                """)
     
     conn.close()
 
     
 
 if __name__ == "__main__":
-    parameters_master = config_parameters("C:/tmp/parameters/database.ini","postgresql_master")
-    parameters_db = config_parameters("C:/tmp/parameters/database.ini","postgresql_scraper")
+    parameters_master = config_parameters("/tmp/parameters/database.ini","postgresql_master")
+    parameters_db = config_parameters("/tmp/parameters/database.ini","postgresql_scraper")
     creating_db(configuration=parameters_master,db_name="scraper")
     creating_tables(configuration=parameters_db)
     load_to_sql(configuration=parameters_db)
-
-
-
-

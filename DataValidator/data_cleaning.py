@@ -87,7 +87,7 @@ def convert_to_csv(clean_data: dict, data_level: str, gender: str) -> pd.DataFra
     
     # Converting the list of dictionaries into a DF.
     df = pd.DataFrame(clean_data)
-    df.to_csv(f"C:/tmp/files/access/products-{gender}-{data_level}.csv",encoding="utf-8-sig",index=False)
+    df.to_csv(f"/tmp/files/access/products-{gender}-{data_level}.csv",encoding="utf-8-sig",sep=';',index=False)
 
     return df
 
@@ -95,7 +95,7 @@ def convert_to_csv(clean_data: dict, data_level: str, gender: str) -> pd.DataFra
 
 
 if __name__ == "__main__":
-    files = get_files_names(path="C:/tmp/files/raw/")
+    files = get_files_names(path="/tmp/files/raw/")
     for file in files:
         gender_file = file.split("-")[1]
         csv_to_list = csv_reader(filename=file)

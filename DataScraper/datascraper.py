@@ -9,20 +9,20 @@ def create_folders():
     '''
     This will create the folders for the extracted data.
     '''
-    if os.path.isdir("C:/tmp/files/"):
+    if os.path.isdir("/tmp/files/"):
         pass
     else:
-        os.mkdir("C:/tmp/files/")
+        os.mkdir("/tmp/files/")
 
-    if os.path.isdir("C:/tmp/files/raw"):
+    if os.path.isdir("/tmp/files/raw"):
         pass
     else:
-        os.mkdir("C:/tmp/files/raw/")
+        os.mkdir("/tmp/files/raw/")
 
-    if os.path.isdir("C:/tmp/files/access"):
+    if os.path.isdir("/tmp/files/access"):
         pass
     else:
-        os.mkdir("C:/tmp/files/access")
+        os.mkdir("/tmp/files/access")
         
 
 # Creating the function for the scraper for sunglasseshub for men
@@ -69,7 +69,7 @@ def scraper(data_level: str, men_scraper: bool, women_scraper: bool):
         # Here, I'm creating the Dataframe and selecting only the columns that I need for the pipeline
         selectColumnsDFMen = pd.json_normalize(data_)[["isJunior","lensColor","img","isFindInStore","isCustomizable","roxableLabel","brand","imgHover","isPolarized","colorsNumber","isOutOfStock","modelName","isEngravable","localizedColorLabel","name","listPrice","offerPrice"]]
         # Finally, the data is written into a csv file
-        selectColumnsDFMen.to_csv(f"C:/tmp/files/raw/products-men-{data_level}.csv",encoding="utf-8-sig",index=False)    
+        selectColumnsDFMen.to_csv(f"/tmp/files/raw/products-men-{data_level}.csv",encoding="utf-8-sig",index=False)    
     else:
         pass
 
@@ -99,7 +99,7 @@ def scraper(data_level: str, men_scraper: bool, women_scraper: bool):
 
         data_ = response["plpView"]["products"]["products"]["product"]
         selectColumnsDFWomen = pd.json_normalize(data_)[["isJunior","lensColor","img","isFindInStore","isCustomizable","roxableLabel","brand","imgHover","isPolarized","colorsNumber","isOutOfStock","modelName","isEngravable","localizedColorLabel","name","listPrice","offerPrice"]]
-        selectColumnsDFWomen.to_csv(f"C:/tmp/files/raw/products-women-{data_level}.csv",encoding="utf-8-sig",index=False)
+        selectColumnsDFWomen.to_csv(f"/tmp/files/raw/products-women-{data_level}.csv",encoding="utf-8-sig",index=False)
     else:
         pass
 
