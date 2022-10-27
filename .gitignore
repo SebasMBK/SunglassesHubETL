@@ -4,3 +4,4 @@ credentials
 parameters
 __pycache__
 testing
+__init__.py
