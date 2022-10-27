@@ -1,6 +1,7 @@
 import psycopg2
 from configparser import ConfigParser
-from DataValidator.data_cleaning import get_files_names
+from utilities import get_files_names
+
 
 # Setting up the configurations
 def config_parameters(filename: str, section: str):
@@ -84,7 +85,7 @@ def creating_tables(configuration: dict):
                      is in the form of a dictionary
     """
 
-    # This function "get_files_names" was imported from the "data_validation.py" python file.
+    # This function "get_files_names" was imported from the "utilities.py" python file.
     files = get_files_names(path="C:/tmp/files/access/")
 
     conn = psycopg2.connect(**configuration)
@@ -138,6 +139,7 @@ def load_to_sql(configuration: dict):
                      is in the form of a dictionary 
     """
     
+    # This function "get_files_names" was imported from the "utilities.py" python file.
     files = get_files_names(path="C:/tmp/files/access/")
 
     conn = psycopg2.connect(**configuration)
