@@ -1,6 +1,6 @@
 import psycopg2
 from configparser import ConfigParser
-from DataValidator.data_validation import get_files_names
+from DataValidator.data_cleaning import get_files_names
 
 # Setting up the configurations
 def config_parameters(filename: str, section: str):
