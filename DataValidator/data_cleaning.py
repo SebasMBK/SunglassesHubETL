@@ -100,7 +100,8 @@ if __name__ == "__main__":
         gender_file = file.split("-")[1]
         csv_to_list = csv_reader(filename=file)
         access_level_data = data_cleaning(raw_data=csv_to_list)
-        
+
+        # This will do the validations against the pydantic model        
         try:
             validated_file = [products.parse_obj(data_) for data_ in access_level_data]
             write_to_csv = convert_to_csv(clean_data=access_level_data,data_level="access",gender=gender_file)
