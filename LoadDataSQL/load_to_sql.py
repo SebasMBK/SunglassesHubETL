@@ -158,7 +158,10 @@ def load_to_sql(configuration: dict):
             cursor.execute(sql_truncate)
 
             with open(file,'r') as csv:
+                # We are ignoring the headers of the csv file, otherwise they'll be copied to de table
                 next(csv)
+
+                # Here, we are using ";" as separators. This is because there are some numbers with ",". Therefore, SQL counts them as an extra column
                 cursor.copy_from(csv,f'{table_name}',sep=';')
 
 
