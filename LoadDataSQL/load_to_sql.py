@@ -111,8 +111,8 @@ def creating_tables(configuration: dict):
                     modelname VARCHAR(255), \
                     isengravable BOOL, \
                     localizedcolorlabel VARCHAR(255), \
-                    listprice money, \
-                    offerprice money, \
+                    listprice MONEY, \
+                    offerprice MONEY, \
                     PRIMARY KEY (lenscolor, modelname, localizedcolorlabel) \
                     );
                     '''

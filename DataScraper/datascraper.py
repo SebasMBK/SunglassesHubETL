@@ -3,6 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 import os
+import time
 
 def create_folders():
     '''
@@ -106,6 +107,7 @@ if __name__ == "__main__":
     create_folders()
     # Is preferable to do one scraper at a time
     scraper("raw",men_scraper=True,women_scraper=False)
+    time.sleep(10)
     scraper("raw",men_scraper=False,women_scraper=True)
 
 
