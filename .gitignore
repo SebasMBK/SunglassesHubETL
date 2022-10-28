@@ -6,3 +6,6 @@ __pycache__
 testing
 __init__.py
 .env
+dags
+logs
+plugins
