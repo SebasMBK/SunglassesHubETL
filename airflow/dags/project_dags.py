@@ -7,11 +7,24 @@ with DAG(
     start_date=datetime(2022,10,28),
     schedule_interval='@daily',
     catchup=False,
-    max_active_runs=1
+    max_active_runs=1,
+    tags=['Scraper']
 ) as dag:
 
-    hello_world = BashOperator(
-        task_id="hello",
-        bash_command="cat /opt/airflow/tasks/LoadDataSQL/parameters/database.ini"
+    data_scraper = BashOperator(
+        task_id="datascraper",
+        bash_command="python /opt/airflow/tasks/DataScraper/datascraper.py"
         )
+
+    data_cleaning = BashOperator(
+        task_id="data_cleaning_validator",
+        bash_command="python /opt/airflow/tasks/DataScraper/data_cleaning.py"
+        )
+
+    load_to_sql = BashOperator(
+        task_id="load_to_sql",
+        bash_command="python /opt/airflow/tasks/LoadDataSQL/load_to_sql.py"
+        )
+    
+    data_scraper >> data_cleaning >> load_to_sql
 
