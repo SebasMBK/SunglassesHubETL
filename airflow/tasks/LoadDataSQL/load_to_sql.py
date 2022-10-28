@@ -1,7 +1,7 @@
 import psycopg2
 from configparser import ConfigParser
 from utilities import get_files_names
-
+import pathlib
 
 # Setting up the configurations
 def config_parameters(filename: str, section: str):
@@ -182,8 +182,9 @@ def load_to_sql(configuration: dict):
     
 
 if __name__ == "__main__":
-    parameters_master = config_parameters("/tmp/parameters/database.ini","postgresql_master")
-    parameters_db = config_parameters("/tmp/parameters/database.ini","postgresql_scraper")
-    creating_db(configuration=parameters_master,db_name="scraper")
+    database_conf_path = str(pathlib.Path(__file__).parent.resolve()) + "/parameters/database.ini"
+    parameters_master = config_parameters(database_conf_path"postgresql_master")
+    parameters_db = config_parameters(database_conf_path,"postgresql_scraper")
+    creating_db(configuration=parameters_master,db_name=parameters_db['database'])
     creating_tables(configuration=parameters_db)
     load_to_sql(configuration=parameters_db)
