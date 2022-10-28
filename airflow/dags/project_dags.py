@@ -18,7 +18,7 @@ with DAG(
 
     data_cleaning = BashOperator(
         task_id="data_cleaning_validator",
-        bash_command="python /opt/airflow/tasks/DataScraper/data_cleaning.py"
+        bash_command="python /opt/airflow/tasks/DataValidator/data_cleaning.py"
         )
 
     load_to_sql = BashOperator(
