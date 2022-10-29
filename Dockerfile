@@ -1,4 +1,4 @@
-FROM apache/airflow:latest-python3.10
+FROM apache/airflow:2.4.2
 
 USER root
 
@@ -12,11 +12,7 @@ RUN apt-get update \
 
 USER airflow
 
-COPY Pipfile .
-COPY Pipfile.lock .
+COPY requirements.txt .
 
-# We already have a requirements.txt file, so we are going to directly COPY that to the docker container and install the dependencies from there.
-RUN sudo python3 -m pip install --upgrade pip
-RUN sudo python3 -m pip install pipenv
-RUN pipenv requirements > requirements.txt
-RUN sudo python3 -m pip install --no-cache-dir --user -r requirements.txt
+RUN pip install --upgrade pip
+RUN pip install --no-cache-dir --user -r requirements.txt

@@ -9,3 +9,5 @@ __init__.py
 logs
 plugins
 dags
+Pipfile
+Pipfile.lock

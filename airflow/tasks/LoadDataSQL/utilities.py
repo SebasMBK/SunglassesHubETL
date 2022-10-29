@@ -1,5 +1,5 @@
 import os
-def get_files_names(path) -> list[str]:
+def get_files_names(path):
 
     """
     This function returns a list of the files' names that exist in the directory
