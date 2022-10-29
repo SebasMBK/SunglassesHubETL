@@ -36,5 +36,5 @@ with DAG(
         bash_command="python /opt/airflow/tasks/LoadDataSQL/load_to_sql.py",
         )
     
-    data_scraper >> importing_pydantic >> data_cleaning >> load_to_sql
+    [data_scraper,importing_pydantic] >> data_cleaning >> load_to_sql
 
