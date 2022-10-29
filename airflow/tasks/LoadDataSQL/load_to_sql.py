@@ -183,7 +183,7 @@ def load_to_sql(configuration: dict):
 
 if __name__ == "__main__":
     database_conf_path = str(pathlib.Path(__file__).parent.resolve()) + "/parameters/database.ini"
-    parameters_master = config_parameters(database_conf_path"postgresql_master")
+    parameters_master = config_parameters(database_conf_path,"postgresql_master")
     parameters_db = config_parameters(database_conf_path,"postgresql_scraper")
     creating_db(configuration=parameters_master,db_name=parameters_db['database'])
     creating_tables(configuration=parameters_db)

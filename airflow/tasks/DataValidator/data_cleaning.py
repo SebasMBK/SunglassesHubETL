@@ -5,7 +5,7 @@ import os
 from pydantic import ValidationError
 from model_pydantic import products
 
-def get_files_names(path) -> list[str]:
+def get_files_names(path):
 
     """
     This function returns a list of the files' names that exist in the directory
@@ -22,7 +22,7 @@ def get_files_names(path) -> list[str]:
     return files
 
 
-def csv_reader(filename:str) -> list[dict]:
+def csv_reader(filename:str):
 
     """
     This will return a list of dictionaries containing data from each column of the file
@@ -43,7 +43,7 @@ def csv_reader(filename:str) -> list[dict]:
         print(f"{filename} - {exception}")
 
 
-def data_cleaning(raw_data:list) -> list[dict]:
+def data_cleaning(raw_data:list):
 
     """
     This will return the raw data cleaned into a list of dictionaries
@@ -74,7 +74,7 @@ def data_cleaning(raw_data:list) -> list[dict]:
     return df.to_dict("records")
 
 
-def convert_to_csv(clean_data: dict, data_level: str, gender: str) -> pd.DataFrame:
+def convert_to_csv(clean_data: dict, data_level: str, gender: str):
 
     """
     This will write the clean data into a csv file

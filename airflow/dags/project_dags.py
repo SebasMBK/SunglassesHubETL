@@ -2,12 +2,15 @@ from airflow import DAG
 from datetime import datetime
 from airflow.operators.bash import BashOperator
 
+default_args = {"owner": "airflow"}
+
 with DAG(
     'sunglasseshub_etl',
     start_date=datetime(2022,10,28),
     schedule_interval='@daily',
     catchup=False,
     max_active_runs=1,
+    default_args=default_args,
     tags=['Scraper']
 ) as dag:
 

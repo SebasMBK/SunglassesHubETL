@@ -12,8 +12,9 @@ psycopg2 = "*"
 configparser = "*"
 pathlib = "*"
 apache-airflow = "*"
+pydantic = "*"
 
 [dev-packages]
 
 [requires]
-python_version = "3.9"
+python_version = "3.10"
