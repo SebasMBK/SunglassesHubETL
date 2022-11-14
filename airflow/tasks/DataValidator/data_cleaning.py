@@ -4,6 +4,7 @@ import pandas as pd
 import os
 from pydantic import ValidationError
 from model_pydantic import products
+import datetime
 
 def get_files_names(path):
 

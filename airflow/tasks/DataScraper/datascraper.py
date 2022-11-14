@@ -1,9 +1,9 @@
 from genericpath import isdir
 import requests
-from bs4 import BeautifulSoup
 import pandas as pd
 import os
 import time
+import datetime
 
 def create_folders():
     '''
@@ -68,8 +68,15 @@ def scraper(data_level: str, men_scraper: bool, women_scraper: bool):
         data_ = response["plpView"]["products"]["products"]["product"]
         # Here, I'm creating the Dataframe and selecting only the columns that I need for the pipeline
         selectColumnsDFMen = pd.json_normalize(data_)[["isJunior","lensColor","img","isFindInStore","isCustomizable","roxableLabel","brand","imgHover","isPolarized","colorsNumber","isOutOfStock","modelName","isEngravable","localizedColorLabel","name","listPrice","offerPrice"]]
+        # Creating a new column to add the extract date:
+        selectColumnsDFMen['extractdate'] = datetime.datetime.now()
         # Finally, the data is written into a csv file
         selectColumnsDFMen.to_csv(f"/tmp/files/raw/products-men-{data_level}.csv",encoding="utf-8-sig",index=False)    
+
+        print("Sunglasses for men's table succesfully extracted")
+
+        time.sleep(10)
+
     else:
         pass
 
@@ -99,16 +106,21 @@ def scraper(data_level: str, men_scraper: bool, women_scraper: bool):
 
         data_ = response["plpView"]["products"]["products"]["product"]
         selectColumnsDFWomen = pd.json_normalize(data_)[["isJunior","lensColor","img","isFindInStore","isCustomizable","roxableLabel","brand","imgHover","isPolarized","colorsNumber","isOutOfStock","modelName","isEngravable","localizedColorLabel","name","listPrice","offerPrice"]]
+        selectColumnsDFWomen['extractdate'] = datetime.datetime.now()
         selectColumnsDFWomen.to_csv(f"/tmp/files/raw/products-women-{data_level}.csv",encoding="utf-8-sig",index=False)
+
+        print("Sunglasses for women's table succesfully extracted")
+
+        time.sleep(10)
+        
     else:
         pass
 
 if __name__ == "__main__":
     create_folders()
     # Is preferable to do one scraper at a time
-    scraper("raw",men_scraper=True,women_scraper=False)
-    time.sleep(10)
-    scraper("raw",men_scraper=False,women_scraper=True)
+    scraper("raw",men_scraper=True,women_scraper=True)
+    #scraper("raw",men_scraper=False,women_scraper=True)
 
 
 

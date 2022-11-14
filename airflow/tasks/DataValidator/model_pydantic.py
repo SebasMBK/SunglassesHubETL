@@ -26,6 +26,7 @@ class products(BaseModel):
     # Both prices contains "$" signs. Therefore they are considered as strings by python
     listprice: str
     offerprice: str
+    extractdate: str
 
     @validator('modelname')
     def not_null_modelname(cls,modelname):

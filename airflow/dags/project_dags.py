@@ -21,11 +21,6 @@ with DAG(
         bash_command="python /opt/airflow/tasks/DataScraper/datascraper.py"
         )
 
-    importing_pydantic = BashOperator(
-        task_id="importing_pydantic",
-        bash_command="pip install pydantic"
-        )
-
     data_cleaning = BashOperator(
         task_id="data_cleaning_validator",
         bash_command="python /opt/airflow/tasks/DataValidator/data_cleaning.py"
@@ -33,8 +28,8 @@ with DAG(
 
     load_to_sql = BashOperator(
         task_id="load_to_sql",
-        bash_command="python /opt/airflow/tasks/LoadDataSQL/load_to_sql.py",
+        bash_command="python /opt/airflow/tasks/LoadDataSQL/AzurePostgres.py",
         )
     
-    [data_scraper,importing_pydantic] >> data_cleaning >> load_to_sql
+    data_scraper >> data_cleaning >> load_to_sql
 
