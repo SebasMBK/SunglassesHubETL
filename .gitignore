@@ -4,10 +4,24 @@ credentials
 parameters
 __pycache__
 testing
-__init__.py
+
+# Airflow / Docker
 .env
 logs
 plugins
 dags
+
+# Virtual environment
 Pipfile
 Pipfile.lock
+
+# Terraform
+*.terraform
+*.hcl
+*.tfstate
+*.info
+*.backup
+
+# config files
+*.ini
+*.env

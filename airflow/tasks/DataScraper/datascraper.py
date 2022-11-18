@@ -1,29 +1,9 @@
-from genericpath import isdir
 import requests
-import pandas as pd
-import os
 import time
 import datetime
-
-def create_folders():
-    '''
-    This will create the folders for the extracted data.
-    '''
-    if os.path.isdir("/tmp/files/"):
-        pass
-    else:
-        os.mkdir("/tmp/files/")
-
-    if os.path.isdir("/tmp/files/raw"):
-        pass
-    else:
-        os.mkdir("/tmp/files/raw/")
-
-    if os.path.isdir("/tmp/files/access"):
-        pass
-    else:
-        os.mkdir("/tmp/files/access")
-        
+import datetime
+import pandas as pd
+from upload_azure import azure_upload_df
 
 # Creating the function for the scraper for sunglasseshub for men
 def scraper(data_level: str, men_scraper: bool, women_scraper: bool):
@@ -71,9 +51,11 @@ def scraper(data_level: str, men_scraper: bool, women_scraper: bool):
         # Creating a new column to add the extract date:
         selectColumnsDFMen['extractdate'] = datetime.datetime.now()
         # Finally, the data is written into a csv file
-        selectColumnsDFMen.to_csv(f"/tmp/files/raw/products-men-{data_level}.csv",encoding="utf-8-sig",index=False)    
+        #selectColumnsDFMen.to_csv(f"/tmp/files/raw/products-men-{data_level}.csv",encoding="utf-8-sig",index=False)
+        
+        azure_upload_df(dataframe=selectColumnsDFMen, filename=f"products-men-{data_level}.csv", datalevel=f"{data_level}")    
 
-        print("Sunglasses for men's table succesfully extracted")
+        print("Sunglasses for men's table succesfully extracted and uploaded")
 
         time.sleep(10)
 
@@ -107,9 +89,10 @@ def scraper(data_level: str, men_scraper: bool, women_scraper: bool):
         data_ = response["plpView"]["products"]["products"]["product"]
         selectColumnsDFWomen = pd.json_normalize(data_)[["isJunior","lensColor","img","isFindInStore","isCustomizable","roxableLabel","brand","imgHover","isPolarized","colorsNumber","isOutOfStock","modelName","isEngravable","localizedColorLabel","name","listPrice","offerPrice"]]
         selectColumnsDFWomen['extractdate'] = datetime.datetime.now()
-        selectColumnsDFWomen.to_csv(f"/tmp/files/raw/products-women-{data_level}.csv",encoding="utf-8-sig",index=False)
+        #selectColumnsDFWomen.to_csv(f"/tmp/files/raw/products-women-{data_level}.csv",encoding="utf-8-sig",index=False)
+        azure_upload_df(dataframe=selectColumnsDFWomen, filename=f"products-women-{data_level}.csv", datalevel=f"{data_level}") 
 
-        print("Sunglasses for women's table succesfully extracted")
+        print("Sunglasses for women's table succesfully extracted and uploaded")
 
         time.sleep(10)
         
@@ -117,7 +100,6 @@ def scraper(data_level: str, men_scraper: bool, women_scraper: bool):
         pass
 
 if __name__ == "__main__":
-    create_folders()
     # Is preferable to do one scraper at a time
     scraper("raw",men_scraper=True,women_scraper=True)
     #scraper("raw",men_scraper=False,women_scraper=True)
