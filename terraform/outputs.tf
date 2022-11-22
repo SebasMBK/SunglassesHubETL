@@ -22,3 +22,19 @@ output "access_data_directory" {
   value = var.access_data_dirname
   description = "Name of the directory that contains the access level data"
 }
+
+output "postgres_servername" {
+  value = azurerm_postgresql_flexible_server.postgres_server.fqdn
+}
+
+output "sql_databasename" {
+  value = var.postgresql_database_name
+}
+
+output "sql_username" {
+  value = var.sql_user
+}
+
+output "sql_password" {
+  value = var.sql_pass
+}

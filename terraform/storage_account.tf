@@ -1,7 +1,7 @@
 resource "azurerm_storage_account" "project_storage" {
     name = "sunglasseshubetl"
     resource_group_name = azurerm_resource_group.azure_rg.name
-    location = "${var.project_region}"
+    location = var.project_region
     account_tier = "Standard"
     account_replication_type = "LRS"
     account_kind = "StorageV2"
@@ -20,7 +20,7 @@ resource "azurerm_storage_container" "project_staging_container" {
     container_access_type = "blob"
 }
 
-# With this line of code we are storing the information of the azure account
+# With this line of code we are storing the information of the logged in azure account
 data "azuread_client_config" "current"{}
 
 resource "azurerm_role_assignment" "data-contributor-role" {
