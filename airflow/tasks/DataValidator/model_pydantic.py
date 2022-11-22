@@ -23,9 +23,8 @@ class products(BaseModel):
     modelname: str
     isengravable: bool
     localizedcolorlabel: str
-    # Both prices contains "$" signs. Therefore they are considered as strings by python
-    listprice: str
-    offerprice: str
+    listprice: float
+    offerprice: float
     extractdate: str
 
     @validator('modelname')

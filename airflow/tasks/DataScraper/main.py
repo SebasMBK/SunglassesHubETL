@@ -5,7 +5,7 @@ from dotenv import dotenv_values
 
 if __name__ == "__main__":
 
-    script_path = pathlib.Path(__file__).parent.resolve()
+    script_path = pathlib.Path(__file__).parent.parent.resolve()
     config = dotenv_values(f"{script_path}/configuration.env")
     data_level = config["raw_data_directory"]
 

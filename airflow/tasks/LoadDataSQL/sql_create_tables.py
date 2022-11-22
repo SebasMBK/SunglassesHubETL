@@ -1,21 +1,43 @@
 import psycopg2
-from utilities import get_files_names
+from list_files import *
+from config_parameters import *
 
-def creating_tables(configuration: dict):
+def creating_tables(config_filename:str):
 
     """
     This function will create the tables that we need to store the sunglasseshub data that was
     extracted
 
-    args:
-    - configuration: These are the configuration params of the DB that will be used. This information
-                     is in the form of a dictionary
+    Args:
+    - config_filename = The name of the ".env" file that contains the information of the SQL database.
+
     """
 
-    # This function "get_files_names" was imported from the "utilities.py" python file.
-    files = get_files_names(path="/tmp/files/access/")
+    # Database configuration parameters
+    dbname = config_parameters(config_filename,"sql_databasename")
+    user = config_parameters(config_filename,"sql_username")
+    password = config_parameters(config_filename,"sql_password")
+    host = config_parameters(config_filename,"postgres_servername")
 
-    conn = psycopg2.connect(**configuration)
+    # Storage account configuration parameters
+    storage_account_url = config_parameters(config_filename,"storage_account_url")
+    etl_container_name = config_parameters(config_filename,"etl_container_name")
+    access_data_directory = config_parameters(config_filename,"access_data_directory")
+
+    # List of the access level files' names that are stored inside our storage account
+    files = files_list(
+        storage_url=storage_account_url,
+        container_name=etl_container_name,
+        data_level=access_data_directory
+        )
+
+    conn = psycopg2.connect(
+        dbname=dbname,
+        user=user,
+        password=password,
+        host = host,
+        port = "5432"
+    )
     conn.autocommit = True
 
 
@@ -55,8 +77,8 @@ def creating_tables(configuration: dict):
                                 modelname VARCHAR(255), \
                                 isengravable BOOL, \
                                 localizedcolorlabel VARCHAR(255), \
-                                listprice MONEY, \
-                                offerprice MONEY,\
+                                listprice NUMERIC(6,2), \
+                                offerprice NUMERIC(6,2),\
                                 extractdate DATE \
                                 );
                                 '''
@@ -78,8 +100,8 @@ def creating_tables(configuration: dict):
                                 modelname VARCHAR(255), \
                                 isengravable BOOL, \
                                 localizedcolorlabel VARCHAR(255), \
-                                listprice MONEY, \
-                                offerprice MONEY, \
+                                listprice NUMERIC(6,2), \
+                                offerprice NUMERIC(6,2), \
                                 extractdate DATE,
                                 PRIMARY KEY (lenscolor,modelname,localizedcolorlabel) \
                                 );
@@ -95,5 +117,6 @@ def creating_tables(configuration: dict):
                     |An error ocurred. Check the logs for more information.|
                     --------------------------------------------------------
                     """)
+                
     
     conn.close()

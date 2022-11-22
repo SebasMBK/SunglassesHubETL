@@ -1,41 +1,32 @@
-from configparser import ConfigParser
 import pathlib
+from dotenv import dotenv_values
 
 # Setting up the configurations
 def config_parameters(filename: str, section: str):
 
     '''
-    This function will return a dictionary with the parameters set in the ".ini" file for the
-    selected database
+    This function will return a dictionary with the parameters set in the ".env" file for the
+    project
 
     args:
-    - filename: This is the ".ini" file that contains the parameters for the configuration of the
-                database.
-    - section:  This is the section of the ".ini" file that we want.
+    - filename: This is the ".env" file that contains the parameters for the configuration of the
+                database. (The name should include the ".env" extension)
+    - section:  This is the section of the ".env" file that we want.
 
 
-    Example of a ".ini" file:
+    Example of a ".env" file:
 
-        [postgresql]
-        host=localhost
-        database=postgres
-        user=postgres
-        password=password
-        port=5432
+    access_data_directory = "access"
+    etl_container_name = "etldatalake"
+    etl_stagingarea_name = "etlstaging"
+    raw_data_directory = "raw"
+    storage_account_url = "https://sunglasseshubetl.blob.core.windows.net/"
+    sql_password = ******
+    sql_user = *****
     '''
 
-    # Creating the parser
-    parsing = ConfigParser()
-    # Reading the file
-    parsing.read(filename)
+    script_path = pathlib.Path(__file__).parent.parent.resolve()
+    config_file = dotenv_values(f"{script_path}/{filename}")
+    config = config_file[f"{section}"]
 
-    # Creating the dictionary with the information of the configuration of the connection to the DB
-    database_params = {}
-    if parsing.has_section(section):
-        parameters = parsing.items(section)
-        for parameter in parameters:
-            database_params[parameter[0]] = parameter[1]
-    else:
-        raise Exception(f'Section {section} not found in the {filename} file')
-
-    return database_params
+    return config
