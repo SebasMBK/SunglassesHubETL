@@ -35,4 +35,6 @@ def data_cleaning(storage_url:str, container_name:str, data_level:str, filename:
     # Every column name must be in lowercase
     df.columns = df.columns.str.lower()
 
+    print("Data cleaned succesfully")
+
     return df.to_dict("records")

@@ -32,3 +32,5 @@ if __name__ == "__main__":
 
         except ValidationError as exception:
             print(f"Sunglasses for {gender}: {exception}")
+        
+        print("Data cleaned and taken to the access level directory")
