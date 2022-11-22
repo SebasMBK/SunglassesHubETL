@@ -13,7 +13,7 @@ def data_cleaning(storage_url:str, container_name:str, data_level:str, filename:
     """
     
     # Converting the csv containing raw data into a DF
-    df = pd.read_csv(f'{storage_url}{container_name}/{data_level}/{filename}')
+    df = pd.read_csv(f'{storage_url}{container_name}/{data_level}/{filename}',encoding="utf-8")
 
     # The column "colorsNumber" has this syntax e.g. "2 colors" or "1 Color". Here we are only keeping
     # the numbers
@@ -21,9 +21,13 @@ def data_cleaning(storage_url:str, container_name:str, data_level:str, filename:
     df["colorsNumber"] = df["colorsNumber"].str.replace(" Color","")
 
     # These 3 columns are part of the PRIMARY KEY, so they can't be empty
-    df["modelName"].replace("","N/A",inplace=True)
-    df["lensColor"].replace("","N/A",inplace=True)
-    df["localizedColorLabel"].replace("","N/A",inplace=True)
+    df["modelName"] = df["modelName"].fillna("No Data")
+    df["lensColor"] = df["lensColor"].fillna("No Data")
+    df["localizedColorLabel"] = df["localizedColorLabel"].fillna("No Data")
+
+    # Remove the "$" sign from the prices columns
+    df["listPrice"] = df["listPrice"].replace({'\$':''}, regex = True).str.replace(",","").astype(float)
+    df["offerPrice"] = df["offerPrice"].replace({'\$':''}, regex = True).str.replace(",","").astype(float)
 
     # There are 2 columns for the product name. Here we are dropping the one with the name "name"
     df.drop(['name'], axis=1, inplace=True)
