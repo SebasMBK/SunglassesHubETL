@@ -10,11 +10,11 @@ from upload_function import *
 if __name__ == "__main__":
     
     # Env Values
-    env_values = config_values()
-    access_data_directory = env_values["access_data_directory"]
-    etl_container_name = env_values["etl_container_name"]
-    raw_data_directory = env_values["raw_data_directory"]
-    storage_account_url = env_values["storage_account_url"]
+    configuration_filename = "configuration.env"
+    access_data_directory = config_parameters(configuration_filename,"access_data_directory")
+    etl_container_name = config_parameters(configuration_filename,"etl_container_name")
+    raw_data_directory = config_parameters(configuration_filename,"raw_data_directory")
+    storage_account_url = config_parameters(configuration_filename,"storage_account_url")
 
     # Cleaning process
     files = files_list(storage_url=storage_account_url, container_name=etl_container_name, data_level=raw_data_directory)
