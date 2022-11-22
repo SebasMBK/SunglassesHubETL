@@ -25,7 +25,7 @@ def data_cleaning(storage_url:str, container_name:str, data_level:str, filename:
     df["lensColor"] = df["lensColor"].fillna("No Data")
     df["localizedColorLabel"] = df["localizedColorLabel"].fillna("No Data")
 
-    # Remove the "$" sign from the prices columns
+    # Remove the "$" sign from the prices columns and "," from numbers
     df["listPrice"] = df["listPrice"].replace({'\$':''}, regex = True).str.replace(",","").astype(float)
     df["offerPrice"] = df["offerPrice"].replace({'\$':''}, regex = True).str.replace(",","").astype(float)
 
