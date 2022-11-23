@@ -38,3 +38,7 @@ output "sql_username" {
 output "sql_password" {
   value = var.sql_pass
 }
+
+output "synapse_conn_endpoints" {
+  value = azurerm_synapse_workspace.etlsynapse.connectivity_endpoints
+}

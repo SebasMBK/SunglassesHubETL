@@ -14,12 +14,6 @@ resource "azurerm_storage_container" "project_data_lake" {
     container_access_type = "blob"
 }
 
-resource "azurerm_storage_container" "project_staging_container" {
-    name = var.staging_container_name
-    storage_account_name = azurerm_storage_account.project_storage.name
-    container_access_type = "blob"
-}
-
 # With this line of code we are storing the information of the logged in azure account
 data "azuread_client_config" "current"{}
 

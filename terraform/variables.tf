@@ -28,6 +28,16 @@ variable "access_data_dirname" {
     default = "access"
 }
 
+variable "synapse_server_name" {
+    type = string
+    default = "etlsynapse9000"
+}
+
+variable "sql_pool_name" {
+    type = string
+    default = "etlsqlpool9000"
+}
+
 variable "sqlflex_server_name" {
     type = string
     default = "etlhubpostgre9000"
@@ -41,10 +51,10 @@ variable "postgresql_database_name" {
 
 variable "sql_user" {
     type = string
-    description = "This is the Azure postgresql flexible server user"
+    description = "This is the Azure Synapse and postgresql server user"
 }
 
 variable "sql_pass" {
     type = string
-    description = "This is the Azure postgresql flexible server password"
+    description = "This is the Azure Synapse and postgresql server password"
 }

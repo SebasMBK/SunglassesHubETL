@@ -1,6 +1,6 @@
 resource "azurerm_postgresql_flexible_server" postgres_server {
     name = var.sqlflex_server_name
-    resource_group_name = var.project_resourcegroup
+    resource_group_name = azurerm_resource_group.azure_rg.name
     location = var.project_region
     version = "13"
     administrator_login = var.sql_user
