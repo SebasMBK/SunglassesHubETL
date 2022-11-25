@@ -2,7 +2,7 @@ import psycopg2
 from list_files import *
 from config_parameters import *
 
-def creating_tables(config_filename:str):
+def creating_tables_postgres(config_filename:str):
 
     """
     This function will create the tables that we need to store the sunglasseshub data that was
