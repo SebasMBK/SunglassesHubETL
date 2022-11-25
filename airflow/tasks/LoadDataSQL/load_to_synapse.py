@@ -47,7 +47,7 @@ def load_to_synapse(config_filename:str):
                     '''
             
             cursor.execute(sql_truncate)
-            print(F"{main_table_name} table truncated")
+            print(F"{main_table_name} table truncated........")
 
             sql_upload = f''' COPY INTO {main_table_name} \
                        FROM '{storage_account_url}{etl_container_name}/{access_data_directory}/{file}' \
@@ -59,7 +59,7 @@ def load_to_synapse(config_filename:str):
                     '''
 
             cursor.execute(sql_upload)
-            print(f"Data uploaded succesfully to {main_table_name} table........")
+            print(f"Data uploaded succesfully to {main_table_name}........")
                 
         except Exception as e:
             print("""
