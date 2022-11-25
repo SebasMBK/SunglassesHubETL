@@ -27,8 +27,16 @@ output "postgres_servername" {
   value = azurerm_postgresql_flexible_server.postgres_server.fqdn
 }
 
+output "synapse_servername" {
+  value = var.synapse_server_name
+}
+
 output "sql_databasename" {
   value = var.postgresql_database_name
+}
+
+output "sql_pool_dbname" {
+  value = var.sql_pool_name
 }
 
 output "sql_username" {
