@@ -5,7 +5,7 @@ import pandas as pd
 from sqlalchemy import create_engine
 import sqlalchemy
 
-def load_to_sql(config_filename: dict):
+def load_to_postgres(config_filename: dict):
 
     """
     This function will load the data into Potsgresql.
