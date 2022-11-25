@@ -1,6 +1,6 @@
 import pyodbc
-from list_files import *
-from config_parameters import *
+from list_files import files_list
+from config_parameters import config_parameters
 
 def load_to_synapse(config_filename:str):
 
