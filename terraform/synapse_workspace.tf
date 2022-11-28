@@ -32,7 +32,7 @@ resource "azurerm_synapse_sql_pool" "etlsqlpool" {
 # For educational purposes this server will allow all IP's, but this is never recommended for production services/instances
 resource "azurerm_synapse_firewall_rule" "synapse_firewall" {
   name = "all_included"
-  synapse_workspace_id = aazurerm_synapse_workspace.etlsynapse.id
+  synapse_workspace_id = azurerm_synapse_workspace.etlsynapse.id
   start_ip_address = "0.0.0.0"
   end_ip_address   = "255.255.255.255"
 }

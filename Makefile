@@ -5,6 +5,7 @@ help:
 		@echo " stop-airflow:			Stops containers created from the docker-compose file"
 		@echo " init-terraform:		Initializes terraform configuration"
 		@echo " environment:			Builds the Azure Cloud infra using terraform"
+		@echo " destroy-infra:			Destroys the Azure Cloud infra created using terraform"
 		@echo " terraform-config:		Creates the configuration.env file from terraform output.tf file"
 		@echo " remove-airflow:		Removes containers created by build/start-run command"
 
@@ -14,6 +15,8 @@ environment:
 		cd ./terraform && terraform apply
 terraform-config:
 		cd ./terraform && terraform output > ../airflow/tasks/configuration.env
+destroy-infra:
+		cd ./terraform && terraform destroy
 build:
 		sudo docker-compose build
 start:
