@@ -1,6 +1,7 @@
 #!/bin/bash
-if docker exec -ti -u airflow sunglasseshubetl-airflow-worker_1 az login ; then
-    echo "Please wait for the authentication code to appear"
+echo "Please wait for the authentication code to appear"
+if docker exec -ti -u airflow sunglasseshubetl_airflow-worker_1 az login ; then
+    echo "Logged in successfully"
 else
     docker exec -ti -u airflow sunglasseshubetl-airflow-worker-1 az login
 fi
