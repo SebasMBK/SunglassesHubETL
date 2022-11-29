@@ -16,10 +16,10 @@ The tools that were used for this project are the following:
 ![Projects Architecture](https://github.com/SebasMBK/SunglassesHubETL/blob/a556bf21b3f929e4261d68ae840bd754b962fc63/images/azure_etl.png)
 
 1. Scraping the data using insomnia and python.
-2. The extracted data is converted into a Dataframe to be uploaded to Azure Storage account using the Azure Identity and Azure Blob Storage client libraries.
+2. The extracted data is converted into a Dataframe that is uploaded to Azure Storage account using the Azure Identity and Azure Blob Storage client libraries.
 3. The data is cleaned and the data types are validated using pydantic's data classes.
 4. Finally, we deliver the data to Azure Synapse (Datawarehouse) and Azure Database for PostgreSQL - Flexible Server.
-5. Users can then analyze the data using Power BI or whatever visualization tool they prefer.
+5. Users can now analyze the data using Power BI or whatever visualization tool they prefer.
 
 ## Dashboard
 
