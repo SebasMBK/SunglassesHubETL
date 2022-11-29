@@ -32,9 +32,9 @@ It is necessary to install and configure the following tools for the correct fun
 
 ## Start Pipeline
 The following commands can be used to initialize the pipeline, but they will only work in Linux OS.
-1. `make init-terraform`: Initialize the Terraform backend inside the ./terraform directory. You'll be asked to insert first one password and then one user that will be used for both Synapse and PostgreSQL.
+1. `make init-terraform`: Initialize the Terraform backend inside the ./terraform directory. You'll be asked to insert first a password and then a user. These same credentials will be used for both Azure Synapse and PostgreSQL.
 2. `make environment`: Provision the Azure infraestructure using Terraform.
 3. `make terraform-config`: Outputs the configuration of the infra created with Terraform into a file called "configuration.env" inside ./airflow/tasks. This file includes FQDN, database names, etc.
 4. `make start-run`: Creates and starts the airflow containers.
-5. `make az-login`: Login to Azure from within the container. Necessary for all the Airflow tasks. This will prompt you with a authentication url and code. Follow the instructions closely.
+5. `make az-login`: Login to Azure from within the container. Necessary for all the Airflow tasks. This will prompt you with an authentication url and code. Follow the instructions closely.
 Now you can login into Airflow through http://localhost:8080/ and trigger the pipeline manually or wait for the next scheduled run. The user and password should be "airflow". You can change this from the docker-compose file.
