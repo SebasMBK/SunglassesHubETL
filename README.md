@@ -25,8 +25,8 @@ The tools that were used for this project are the following:
 
 ## Project's requirements
 It is necessary to install and configure the following tools for the correct functioning of the pipeline:
-1. [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli) for the account configuring and terraform provisioning.
-2. [Terraform](https://www.terraform.io/) for provisioning the infraestructure.
+1. [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli) for account configuring and terraform provisioning.
+2. [Terraform](https://www.terraform.io/) to provision the infraestructure.
 3. [Docker](https://www.docker.com/) for running airflow and containerizing the pipeline.
 4. (Optional) Linux OS to use the "Makefile" make commands.
 
