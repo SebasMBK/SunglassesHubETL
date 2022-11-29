@@ -8,7 +8,7 @@ The tools that were used for this project are the following:
 - Terraform as IaaC for infra provisioning.
 - Airflow for orchestration.
 - Docker for containerizing the pipeline.
-- Insomnia to obtain the code for sending request to the API.
+- Insomnia for obtaining the code that sends request to the Web page API.
 - Python as the main programming language.
 
 ## Project's Architecture
