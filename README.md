@@ -4,12 +4,12 @@
 This Pipeline extracts data from [Sunglasseshut](https://www.sunglasshut.com) web page that will be sinked into a Power BI dashboard.
 
 The tools that were used for this project are the following:
-- Azure Cloud for hosting the infraestructure.
-- Terraform as IaaC for infra provisioning.
-- Airflow for orchestration.
-- Docker for containerizing the pipeline.
-- Insomnia for obtaining the code that sends request to the Web page API.
-- Python as the main programming language.
+- [Azure](https://azure.microsoft.com/)  for hosting the infraestructure.
+- [Terraform](https://www.terraform.io/) as IaaC for infra provisioning.
+- [Airflow](https://airflow.apache.org/) for orchestration.
+- [Docker](https://www.docker.com/) for containerizing the pipeline.
+- [Insomnia](https://insomnia.rest/) for obtaining the code that sends request to the Web page API.
+- [Python](https://www.python.org/) as the main programming language.
 
 ## Project's Architecture
 ![Projects Architecture](https://github.com/SebasMBK/SunglassesHubETL/blob/a556bf21b3f929e4261d68ae840bd754b962fc63/images/azure_etl.png)
