@@ -14,3 +14,26 @@ The tools that were used for this project are the following:
 
 ## Project's Architecture
 ![Projects Architecture](https://github.com/SebasMBK/SunglassesHubETL/blob/a556bf21b3f929e4261d68ae840bd754b962fc63/images/azure_etl.png)
+
+1. Scraping the data using insomnia and python.
+2. The extracted data is converted into a Dataframe to be uploaded to Azure Storage account using the Azure Identity and Azure Blob Storage client libraries.
+3. The data is cleaned and the data types are validated using pydantic's data classes.
+4. Finally, we deliver the data to Azure Synapse (Datawarehouse) and Azure Database for PostgreSQL - Flexible Server.
+5. Users can then analyze the data using Power BI or whatever visualization tool they prefer.
+
+## Dashboard
+
+## Project's requirements
+It is necessary to install and configure the following tools for the correct functioning of the pipeline:
+1. [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli) for the account configuring and terraform provisioning.
+2. [Terraform](https://www.terraform.io/) for provisioning the infraestructure.
+3. [Docker](https://www.docker.com/) for running airflow and containerizing the pipeline.
+4. (Optional) Linux OS to use the "Makefile" make commands.
+
+## Start Pipeline
+The following commands can be used to initialize the pipeline, but they will only work in a Linux OS.
+1. `make init-terraform`: Initialize the Terraform backend inside the ./terraform directory. You'll be asked to insert first one password and then one user that will be used for both Synapse and PostgreSQL.
+2. `make environment`: Provision the Azure infraestructure using Terraform.
+3. `make terraform-config`: Outputs the configuration of the infra created with Terraform into a file called "configuration.env" inside ./airflow/tasks. This file includes FQDN, database names, etc.
+4. `make start-run`: Creates and starts the airflow containers.
+5. `make az-login`: Login to Azure from within the container. Necessary for all the Airflow tasks. This will prompt you with a authentication url and code. Follow the instructions closely.
