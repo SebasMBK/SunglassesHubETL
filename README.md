@@ -1,7 +1,7 @@
 # SunglassesHubETL
 *This project is for demonstrating knowledge of Data Engineering tools and concepts and also learning in the process*
 
-This Pipeline will extract data from [Sunglasseshut](https://www.sunglasshut.com) web page that will be sinked into a Power BI dashboard.
+This Pipeline extracts data from [Sunglasseshut](https://www.sunglasshut.com) web page that will be sinked into a Power BI dashboard.
 
 The tools that were used for this project are the following:
 - Azure Cloud for hosting the infraestructure.
