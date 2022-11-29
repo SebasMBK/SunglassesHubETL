@@ -9,6 +9,7 @@ The tools that were used for this project are the following:
 - [Airflow](https://airflow.apache.org/) for orchestration.
 - [Docker](https://www.docker.com/) for containerizing the pipeline.
 - [Insomnia](https://insomnia.rest/) for obtaining the code that sends request to the Web page API.
+- [Power BI](https://powerbi.microsoft.com/) for data visualization.
 - [Python](https://www.python.org/) as the main programming language.
 
 ## Project's Architecture
