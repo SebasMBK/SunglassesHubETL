@@ -31,7 +31,7 @@ It is necessary to install and configure the following tools for the correct fun
 4. (Optional) Linux OS to use the "Makefile" make commands.
 
 ## Start Pipeline
-The following commands can be used to initialize the pipeline, but they will only work in Linux OS.
+The following commands can be used to initialize the pipeline, but they will only work on Linux OS.
 1. `make init-terraform`: Initialize the Terraform backend inside the ./terraform directory. You'll be asked to insert first a password and then a user. These same credentials will be used for both Azure Synapse and PostgreSQL.
 2. `make environment`: Provision the Azure infraestructure using Terraform.
 3. `make terraform-config`: Outputs the configuration of the infra created with Terraform into a file called "configuration.env" inside ./airflow/tasks. This file includes FQDN, database names, etc.
