@@ -30,10 +30,10 @@ It is necessary to install and configure the following tools for the correct fun
 1. [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli) for account configuring and terraform provisioning.
 2. [Terraform](https://www.terraform.io/) to provision the infraestructure.
 3. [Docker](https://www.docker.com/) for running airflow and containerizing the pipeline.
-4. (Optional) Linux OS to use the "Makefile" make commands.
+4. (Optional) Linux or MAC OS to use the "Makefile" make commands.
 
 ## Start Pipeline
-The following commands can be used to initialize the pipeline, but they will only work on Linux OS.
+The following commands can be used to initialize the pipeline, but they will only work on Linux or MAC OS.
 1. `make init-terraform`: Initialize the Terraform backend inside the ./terraform directory. You'll be asked to insert first a password and then a user. These same credentials will be used for both Azure Synapse and PostgreSQL.
 2. `make environment`: Provision the Azure infraestructure using Terraform.
 3. `make terraform-config`: Outputs the configuration of the infra created with Terraform into a file called "configuration.env" inside ./airflow/tasks. This file includes FQDN, database names, etc.
