@@ -23,7 +23,7 @@ The tools that were used for this project are the following:
 
 ## Dashboard
 ![Project Dashboard Expensive](https://github.com/SebasMBK/SunglassesHubETL/blob/main/images/Sunglasseshutetl_dashboard.png)
-![Project Dashboard Cheap](https://github.com/SebasMBK/SunglassesHubETL/blob/main/images/Sunglasseshutetl_dashboard_cheapest.png)
+![Project Dashboard Cheap](https://github.com/SebasMBK/SunglassesHubETL/blob/main/images/Sunglasseshutetl_dashboard_cheap.png)
 
 ## Project's requirements
 It is necessary to install and configure the following tools for the correct functioning of the pipeline:
