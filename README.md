@@ -22,6 +22,7 @@ The tools that were used for this project are the following:
 5. Users can now analyze the data using Power BI or whatever visualization tool they prefer.
 
 ## Dashboard
+![Projects Dashboard](https://github.com/SebasMBK/SunglassesHubETL/blob/main/images/Sunglasseshutetl_dashboard.png)
 
 ## Project's requirements
 It is necessary to install and configure the following tools for the correct functioning of the pipeline:
